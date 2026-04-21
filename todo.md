@@ -1,0 +1,48 @@
+- [ ] Compare the three newly provided hero video candidates for visual quality, calm luxury fit, and loading suitability.
+- [ ] Recommend the best video for the hero section and define fallback use for the others.
+- [ ] Provide practical filming and editing suggestions to improve the final hero experience on mobile.
+- [ ] Evaluate the newly shared massage image for luxury hero suitability versus supporting-section use.
+- [ ] Analyze the newly shared video for calm premium hero fit and mobile loading suitability.
+- [ ] Recommend whether the new image or video should lead the page hero and what headline treatment suits it best.
+- [ ] Analyze the newly uploaded WhatsAppVideo2026-04-10at7.18.36PM.mp4 for hero suitability and compare it against the previously reviewed candidates.
+- [ ] Compare pasted_file_QgwfZJ_20260116_170003.mp4 and pasted_file_q9DzSu_20260116_170154.mp4 for hero suitability, calm luxury feel, text readability, and mobile first impression.
+- [ ] Recommend which of the two is better for the landing page hero and which is better as supporting media.
+- [ ] Use the selected video pasted_file_QgwfZJ_20260116_170003.mp4 in the ocean-view/location section instead of the hero.
+- [ ] Update the related copy or section framing so the video supports the location and view story.
+- [ ] Review the revised section on the current landing page preview before delivery.
+- [ ] Replace the current simplified package cards with the four original packages using the same design language, prices, and included services.
+- [ ] Capture the exact content of all four packages, including names, prices, badges, and feature lists.
+- [ ] Prepare optional stronger package names without changing the original offers unless the user approves.
+- [ ] Apply the four confirmed package screenshots as the source of truth for names, badges, prices, subtitles, and feature lists.
+- [ ] Keep the package cards in a tall vertical mobile-first layout that closely matches the original published page.
+- [ ] Preserve the current package names and content exactly unless the user later approves alternative naming.
+- [ ] Add savings labels to the four package cards with the approved values: وفر 40، وفر 50، وفر 71، ووفر 121 ريال.
+- [ ] Make the packages section presentation closer to the original mobile experience, including a more mobile-first card flow.
+- [ ] Strengthen the package and conversion copy while preserving the approved package offers and prices.
+- [ ] Replace the current hero media with the newly attached approved video.
+- [ ] Add crossed-out pre-discount prices above each package price based on the approved savings amounts.
+- [ ] Reorder the mobile package flow so the featured package appears first in the horizontal swipe experience.
+- [ ] Replace the gallery image block shown by the user in the why-us visual section with the newly attached video.
+- [ ] Validate the new gallery video placement on mobile after replacement.
+- [ ] Diagnose why the replaced why-us media block appears empty instead of rendering the requested video.
+- [ ] Apply a fallback-safe rendering fix so the media block never appears blank on mobile or desktop.
+- [ ] Replace the current hero image/media presentation with the newly approved video asset once the file context is available.
+- [ ] Re-verify hero visibility and readability on mobile and desktop after the replacement.
+- [ ] Place the newly approved hero video inside the hero content as a place-intro block, not as a background.
+- [ ] Position the hero video above the main WhatsApp booking button so it introduces the place before the primary CTA.
+- [ ] Convert the mobile packages experience from side-by-side horizontal cards into a vertically stacked slider flow.
+- [ ] Review and refine mobile package spacing, card proportions, price hierarchy, and CTA alignment after the layout change.
+- [ ] Increase visual emphasis for the most requested package so it stands out faster in the packages section.
+- [ ] Rework the reviews section for stronger trust presentation and cleaner readability on mobile.
+- [ ] Add the provided Google Maps location into the contact/location experience with clear mobile access.
+- [ ] Replace the current hero intro media with the newly provided correct video file from the user.
+- [ ] Verify the hero media renders and plays as a real video instead of appearing like a static image on mobile.
+- [ ] Remove native controls from the hero intro video and keep it autoplaying for a cleaner premium presentation.
+- [ ] Verify the current Snap Pixel implementation and confirm whether all WhatsApp and call buttons are tracked.
+- [ ] Explain how the user can obtain a project copy and edit tracking or other code later.
+- [ ] Add Snap Pixel tracking to every WhatsApp and call link across the entire page without exception.
+- [ ] Verify each WhatsApp and call trigger fires tracking correctly after the update.
+- [ ] Refactor Snap Pixel events to use clear names such as WHATSAPP_CLICK and CALL_CLICK across all relevant buttons and CTAs.
+- [ ] Keep the Snap Pixel ID in one variable only and add code comments showing exactly how to change it.
+- [ ] Package the full source code as a downloadable ZIP for user ownership.
+- [ ] Write simple instructions for editing the site, updating the Pixel, and exporting to GitHub for full long-term control.
