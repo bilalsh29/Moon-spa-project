@@ -286,7 +286,7 @@ Favor dark navy depth, warm gold accents, soft blue atmospheric glow, crisp Arab
 
   .floating-stack {
     position: fixed;
-    inset-inline-start: 1rem;
+    inset-inline-end: 1rem;
     bottom: 1rem;
     z-index: 40;
     display: flex;
@@ -329,7 +329,7 @@ Favor dark navy depth, warm gold accents, soft blue atmospheric glow, crisp Arab
     }
 
     .floating-stack {
-      inset-inline-start: 1.25rem;
+      inset-inline-end: 1.25rem;
       bottom: 1.25rem;
     }
   }
@@ -341,7 +341,7 @@ Favor dark navy depth, warm gold accents, soft blue atmospheric glow, crisp Arab
     }
 
     .floating-stack {
-      inset-inline-start: 1.75rem;
+      inset-inline-end: 1.75rem;
       bottom: 1.75rem;
     }
   }

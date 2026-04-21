@@ -1,10 +1,7 @@
-/*
-Style reminder — Neo-Arabian Nocturne:
-Keep the layout luxurious, asymmetrical, Arabic-first, mobile-focused, and conversion-driven with restrained motion and clear CTA hierarchy.
-*/
 import { useEffect, useMemo, useState } from "react";
 import {
   ArrowUp,
+  CheckCircle2,
   Clock3,
   MapPinned,
   Menu,
@@ -17,9 +14,8 @@ import {
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { MapView } from "@/components/Map";
 import { ASSETS, FAQS, PACKAGES, REVIEWS, REVIEW_TOPICS, SERVICES, SITE, TRUST_ITEMS } from "@/lib/site-config";
-import { getSnapPixelId, installSnapPixel, SNAP_EVENTS, trackCallClick, trackSnapEvent, trackWhatsAppClick } from "@/lib/tracking";
+import { installSnapPixel, SNAP_EVENTS, trackCallClick, trackSnapEvent, trackWhatsAppClick } from "@/lib/tracking";
 
 const navItems = [
   { label: "المميزات", href: "#why-us" },
@@ -29,29 +25,35 @@ const navItems = [
   { label: "التواصل", href: "#contact" },
 ] as const;
 
+const heroProofs = [
+  "حجز سريع ومباشر عبر واتساب بدون خطوات معقدة.",
+  "موقع واضح داخل الفندق مع وصول أسهل واتصال مباشر.",
+  `تقييم ${SITE.rating} من ${SITE.reviewCount} تقييمات حقيقية على Google.`,
+] as const;
+
 const whyCards = [
   {
     icon: Waves,
-    title: "إطلالة بحرية هادئة",
-    text: "أجواء مختلفة تضيف للزيارة إحساسًا أهدأ وأكثر رفاهية من أول لحظة.",
+    title: "إحساس هدوء من أول دقيقة",
+    text: "الإطلالة الهادئة والجو العام يساعدان العميل على الشعور بالراحة قبل أن تبدأ الجلسة نفسها.",
   },
   {
     icon: ShieldCheck,
-    title: "خصوصية وراحة",
-    text: "بيئة مرتبة وخدمة راقية مصممة لرحلة استرخاء هادئة وواضحة.",
+    title: "خصوصية ترفع الثقة",
+    text: "عندما يفهم الزائر أن المكان مرتب وواضح وخاص، يصبح قرار الحجز أسرع وأقل ترددًا.",
   },
   {
     icon: Sparkles,
-    title: "تجربة نظيفة وفاخرة",
-    text: "تفاصيل عناية مرتبة، إضاءة مدروسة، ولمسة فندقية ترفع جودة الزيارة.",
+    title: "تفاصيل نظافة وجودة ملموسة",
+    text: "الترتيب، النظافة، واللمسة الفندقية كلها عناصر حسية ترفع القيمة المدركة للخدمة.",
   },
 ] as const;
 
 const stats = [
   { value: SITE.rating, label: "تقييم Google" },
-  { value: SITE.reviewCount, label: "تقييم حقيقي" },
-  { value: "واتساب", label: "حجز سريع" },
-  { value: "حتى الفجر", label: "ساعات عمل" },
+  { value: SITE.reviewCount, label: "تقييمات حقيقية" },
+  { value: "واتساب", label: "أسرع حجز" },
+  { value: "حتى الفجر", label: "ساعات ممتدة" },
 ] as const;
 
 export default function Home() {
@@ -107,7 +109,7 @@ export default function Home() {
       }
       trackSnapEvent(SNAP_EVENTS.SHARE_CLICK, { package_name: packageName });
     } catch {
-      // Ignore share cancellation to preserve a smooth mobile flow.
+      // Ignore share cancellation.
     }
   };
 
@@ -137,20 +139,14 @@ export default function Home() {
             <a href="#top" className="mr-auto flex items-center gap-3 text-right lg:mr-0" onClick={() => setMenuOpen(false)}>
               <img src={ASSETS.logo} alt="Moon Shadow logo" className="h-12 w-12 object-contain sm:h-14 sm:w-14" />
               <div>
-                <p className="font-display text-xl font-semibold tracking-[0.18em] text-[#dfc173] sm:text-2xl">
-                  MOON SHADOW
-                </p>
+                <p className="font-display text-xl font-semibold tracking-[0.18em] text-[#dfc173] sm:text-2xl">MOON SHADOW</p>
                 <p className="text-xs text-white/65 sm:text-sm">{SITE.arabicName}</p>
               </div>
             </a>
 
             <nav className="hidden items-center gap-5 lg:flex">
               {navItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  className="text-sm text-white/78 transition hover:text-[#ebcb7a]"
-                >
+                <a key={item.href} href={item.href} className="text-sm text-white/78 transition hover:text-[#ebcb7a]">
                   {item.label}
                 </a>
               ))}
@@ -160,7 +156,7 @@ export default function Home() {
               href={SITE.whatsapp}
               target="_blank"
               rel="noreferrer"
-              onClick={() => handleWhatsAppTrack("hero_whatsapp_header") }
+              onClick={() => handleWhatsAppTrack("header_whatsapp")}
               className="hidden rounded-full border border-[#d5b46a]/30 bg-[#12192d]/80 px-5 py-2.5 text-sm font-bold text-[#f3dfaf] transition hover:-translate-y-0.5 hover:bg-[#182038] lg:inline-flex"
             >
               احجز عبر واتساب
@@ -205,58 +201,40 @@ export default function Home() {
             />
             <div className="hero-video-mask" />
 
-            <div className="relative grid min-h-[calc(100vh-10rem)] items-end gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
+            <div className="relative grid min-h-[calc(100vh-10rem)] items-end gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
               <div className="max-w-3xl pt-12 sm:pt-16 lg:pt-20">
                 <div className="fade-up section-kicker">Luxury Men&apos;s Spa in Dammam</div>
                 <div className="fade-up-delayed mt-5 inline-flex items-center gap-2 rounded-full border border-red-400/30 bg-red-500/10 px-4 py-2 text-sm font-bold text-red-100">
                   <span className="inline-block h-2.5 w-2.5 animate-pulse rounded-full bg-red-400" />
-                  الأماكن محدودة — الحجز الأسرع عبر واتساب
+                  الأماكن محدودة — أسرع طريقة للحجز هي واتساب
                 </div>
                 <h1 className="fade-up-delayed mt-6 max-w-3xl text-4xl font-bold leading-[1.2] text-white sm:text-5xl lg:text-6xl">
                   {SITE.tagline}
                 </h1>
-                <p className="fade-up-delayed-2 mt-5 max-w-2xl text-base leading-8 text-white/78 sm:text-lg">
+                <p className="fade-up-delayed-2 mt-5 max-w-2xl text-base leading-8 text-white/80 sm:text-lg">
                   {SITE.subtagline}
                 </p>
 
-                <div className="fade-up-delayed-2 mt-7 max-w-xl">
-                  <div className="glass-panel overflow-hidden rounded-[1.7rem] border border-[#d4b36a]/18 p-3 sm:p-4">
-                    <div className="mb-3 flex items-center justify-between gap-3">
-                      <div>
-                        <p className="text-xs font-semibold tracking-[0.24em] text-[#dfc173]">جولة سريعة داخل المكان</p>
-                        <p className="mt-1 text-sm text-white/60">تعريف بصري مختصر قبل الحجز والتواصل.</p>
+                <div className="fade-up-delayed-2 mt-7 grid gap-3 sm:max-w-2xl sm:grid-cols-3">
+                  {heroProofs.map((item) => (
+                    <div key={item} className="rounded-[1.35rem] border border-white/10 bg-[#0f172c]/58 px-4 py-4 text-sm leading-7 text-white/84 backdrop-blur-sm">
+                      <div className="mb-2 inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#d3ae5d]/14 text-[#e5c97f]">
+                        <CheckCircle2 className="h-4 w-4" />
                       </div>
-                      <div className="rounded-full border border-[#d4b36a]/20 bg-[#141b2e]/80 px-3 py-1 text-xs font-bold text-[#efd89d]">
-                        فيديو قصير
-                      </div>
+                      {item}
                     </div>
-                    {showHeroIntroVideo ? (
-                      <video
-                        key={ASSETS.heroIntroVideo}
-                        src={ASSETS.heroIntroVideo}
-                        className="h-44 w-full rounded-[1.2rem] object-cover sm:h-52"
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        preload="metadata"
-                        onError={() => setShowHeroIntroVideo(false)}
-                      />
-                    ) : (
-                      <img src={ASSETS.galleryOne} alt="صورة احتياطية للمكان عند تعذر تشغيل الفيديو" className="h-44 w-full rounded-[1.2rem] object-cover sm:h-52" />
-                    )}
-                  </div>
+                  ))}
                 </div>
 
                 <div className="fade-up-delayed-2 mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                  <a href={SITE.whatsapp} target="_blank" rel="noreferrer" onClick={() => handleWhatsAppTrack("hero_whatsapp") }>
-                    <Button className="gold-button h-12 min-w-[190px] rounded-full px-6 text-base font-extrabold">
+                  <a href={SITE.whatsapp} target="_blank" rel="noreferrer" onClick={() => handleWhatsAppTrack("hero_whatsapp")}>
+                    <Button className="gold-button h-12 min-w-[205px] rounded-full px-6 text-base font-extrabold">
                       <MessageCircle className="ms-2 h-5 w-5" />
                       احجز الآن عبر واتساب
                     </Button>
                   </a>
-                  <a href={SITE.tel} onClick={() => handleCallTrack("hero_call") }>
-                    <Button className="outline-button h-12 min-w-[170px] rounded-full px-6 text-base font-bold">
+                  <a href={SITE.tel} onClick={() => handleCallTrack("hero_call")}>
+                    <Button className="outline-button h-12 min-w-[175px] rounded-full px-6 text-base font-bold">
                       <Phone className="ms-2 h-5 w-5" />
                       اتصل الآن
                     </Button>
@@ -266,7 +244,7 @@ export default function Home() {
                 <div className="fade-up-delayed-2 mt-5 flex flex-wrap items-center gap-3 text-sm text-white/75">
                   <a
                     href={SITE.tel}
-                    onClick={() => handleCallTrack("hero_phone_chip_call") }
+                    onClick={() => handleCallTrack("hero_phone_chip_call")}
                     className="inline-flex items-center gap-2 rounded-full border border-[#d7b76a]/30 bg-black/20 px-4 py-2 font-semibold text-[#f5dfaf]"
                   >
                     <Phone className="h-4 w-4" />
@@ -276,27 +254,60 @@ export default function Home() {
                     <Star className="h-4 w-4 fill-[#d4ad55] text-[#d4ad55]" />
                     {SITE.rating} من {SITE.reviewCount} تقييم
                   </span>
+                  <span className="inline-flex items-center gap-2 rounded-full border border-white/8 bg-white/6 px-4 py-2">
+                    <Clock3 className="h-4 w-4 text-[#d4ad55]" />
+                    ساعات عمل ممتدة حتى الفجر
+                  </span>
                 </div>
               </div>
 
               <div className="fade-up-delayed-2 lg:justify-self-end">
                 <div className="glass-panel relative rounded-[1.8rem] p-5 sm:p-6 lg:max-w-md">
                   <div className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-[#d6ba71] to-transparent" />
-                  <div className="section-kicker">مؤشرات ثقة سريعة</div>
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <div className="section-kicker">انطباع سريع قبل الحجز</div>
+                      <h2 className="mt-3 text-2xl font-bold text-white">شاهد أجواء المكان خلال ثوانٍ</h2>
+                      <p className="mt-3 text-sm leading-7 text-white/70">
+                        هذا المعاينة السريعة تقلل التردد وتعطي العميل إحساسًا أوضح بالمكان قبل التواصل والحجز.
+                      </p>
+                    </div>
+                    <div className="rounded-full border border-[#d4b36a]/20 bg-[#141b2e]/80 px-3 py-1 text-xs font-bold text-[#efd89d]">
+                      معاينة سريعة
+                    </div>
+                  </div>
+
+                  <div className="mt-5 overflow-hidden rounded-[1.4rem] border border-white/8 bg-black/20 p-2">
+                    {showHeroIntroVideo ? (
+                      <video
+                        key={ASSETS.heroIntroVideo}
+                        src={ASSETS.heroIntroVideo}
+                        poster={ASSETS.galleryOne}
+                        className="h-52 w-full rounded-[1.1rem] object-cover sm:h-60"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="none"
+                        onError={() => setShowHeroIntroVideo(false)}
+                      />
+                    ) : (
+                      <img
+                        src={ASSETS.galleryOne}
+                        alt="صورة للمكان عند تعذر تشغيل الفيديو"
+                        className="h-52 w-full rounded-[1.1rem] object-cover sm:h-60"
+                        loading="eager"
+                        decoding="async"
+                      />
+                    )}
+                  </div>
+
                   <div className="mt-5 grid gap-3">
-                    {TRUST_ITEMS.map((item) => (
-                      <div
-                        key={item}
-                        className="rounded-2xl border border-white/8 bg-white/[0.03] px-4 py-3 text-sm leading-7 text-white/80"
-                      >
+                    {TRUST_ITEMS.slice(0, 3).map((item) => (
+                      <div key={item} className="rounded-2xl border border-white/8 bg-white/[0.03] px-4 py-3 text-sm leading-7 text-white/80">
                         {item}
                       </div>
                     ))}
-                  </div>
-                  <div className="mt-5 rounded-[1.5rem] border border-[#d1b162]/18 bg-[#0d1325]/80 p-4 text-right">
-                    <p className="text-xs uppercase tracking-[0.25em] text-[#d9bd79]">Snap Pixel</p>
-                    <p className="mt-2 text-sm text-white/72">مركب بطريقة منظمة وقابل للتغيير لاحقًا من ملف واحد.</p>
-                    <p className="mt-3 text-xs text-white/45">Pixel ID: {getSnapPixelId()}</p>
                   </div>
                 </div>
               </div>
@@ -320,9 +331,9 @@ export default function Home() {
             <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
               <div>
                 <div className="section-kicker">لماذا يختارنا العملاء</div>
-                <h2 className="mt-4 text-3xl font-bold text-white sm:text-4xl">تجربة مصممة للراحة، لا مجرد زيارة سريعة</h2>
+                <h2 className="mt-4 text-3xl font-bold text-white sm:text-4xl">مكان يساعدك على اتخاذ القرار بسرعة لأن الفائدة واضحة من أول نظرة</h2>
                 <p className="mt-4 max-w-xl text-base leading-8 text-white/72">
-                  بنينا النسخة الجديدة بحيث يفهم الزائر قيمة المكان بسرعة: موقع واضح، حجز سهل، ثقة حقيقية، وصور تعكس الأجواء بدل أن تشتت القرار.
+                  كل عنصر في الصفحة الآن يخدم قرارًا واحدًا: أن يشعر الزائر بالثقة والراحة وأن يتحرك إلى الحجز مباشرة بدون تشتيت أو غموض.
                 </p>
                 <div className="mt-6 grid gap-4">
                   {whyCards.map(({ icon: Icon, title, text }) => (
@@ -353,18 +364,24 @@ export default function Home() {
                       muted
                       loop
                       playsInline
-                      preload="metadata"
+                      preload="none"
                       onError={() => setShowWhyUsVideo(false)}
                     />
                   ) : (
-                    <img src={ASSETS.galleryOne} alt="إطلالة وأجواء Moon Shadow" className="h-72 w-full rounded-[1.3rem] object-cover sm:h-80" />
+                    <img
+                      src={ASSETS.galleryOne}
+                      alt="إطلالة وأجواء Moon Shadow"
+                      className="h-72 w-full rounded-[1.3rem] object-cover sm:h-80"
+                      loading="lazy"
+                      decoding="async"
+                    />
                   )}
                 </div>
                 <div className="glass-panel overflow-hidden rounded-[1.8rem] p-3">
-                  <img src={ASSETS.galleryTwo} alt="تفاصيل داخلية من المكان" className="h-56 w-full rounded-[1.3rem] object-cover" />
+                  <img src={ASSETS.realRoomOne} alt="غرفة مساج حقيقية داخل المكان" className="h-56 w-full rounded-[1.3rem] object-cover" loading="lazy" decoding="async" />
                 </div>
                 <div className="glass-panel overflow-hidden rounded-[1.8rem] p-3">
-                  <img src={ASSETS.galleryThree} alt="جانب آخر من تجربة Moon Shadow" className="h-56 w-full rounded-[1.3rem] object-cover" />
+                  <img src={ASSETS.realRoomTwo} alt="تفاصيل حقيقية من غرفة العلاج" className="h-56 w-full rounded-[1.3rem] object-cover" loading="lazy" decoding="async" />
                 </div>
               </div>
             </div>
@@ -375,9 +392,9 @@ export default function Home() {
           <div className="section-shell rounded-[2rem] p-6 sm:p-8 lg:p-10">
             <div className="max-w-2xl">
               <div className="section-kicker">الخدمات الأساسية</div>
-              <h2 className="mt-4 text-3xl font-bold text-white sm:text-4xl">خدمات أوضح، قرار أسهل، وحجز أسرع</h2>
+              <h2 className="mt-4 text-3xl font-bold text-white sm:text-4xl">خدمات واضحة تجعل الاختيار أبسط والحجز أسرع</h2>
               <p className="mt-4 text-base leading-8 text-white/72">
-                اعتمدنا عرضًا مختصرًا وواضحًا للخدمات حتى يصل العميل بسرعة إلى ما يناسبه، ثم يتحرك مباشرة إلى الباقة أو الحجز.
+                عندما يرى العميل الخدمة بشكل مرتب وواضح، تنخفض الحيرة ويصبح الانتقال إلى الباقة أو التواصل أكثر سهولة وسرعة.
               </p>
             </div>
             <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -399,13 +416,13 @@ export default function Home() {
             <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
               <div className="max-w-2xl">
                 <div className="section-kicker">الباقات الحالية</div>
-                <h2 className="mt-4 text-3xl font-bold text-white sm:text-4xl">اختر باقتك الآن واستفد من التوفير الحالي قبل الحجز</h2>
+                <h2 className="mt-4 text-3xl font-bold text-white sm:text-4xl">اختر الباقة المناسبة ثم احجز فورًا خلال دقائق</h2>
                 <p className="mt-4 text-base leading-8 text-white/72">
-                  حافظنا على الباقات الأصلية نفسها، ثم أضفنا إبرازًا أوضح للتوفير داخل كل باقة مع عرض أقرب لتجربة الجوال القديمة حتى يلتقط الزائر الفرق بسرعة ويضغط الحجز مباشرة.
+                  رتبنا المقارنة لتكون أسهل بصريًا، مع إبراز أوضح للتوفير وأفضل نقطة بداية لمن يريد قرارًا سريعًا من أول زيارة.
                 </p>
               </div>
               <div className="rounded-full border border-[#d7b86b]/25 bg-[#161f35]/70 px-4 py-2 text-sm font-semibold text-[#ead496]">
-                على الجوال تظهر الباقات بشكل رأسي أوضح للمقارنة السريعة ثم الحجز فورًا
+                الأسعار واضحة والتوفير ظاهر لتقليل التردد قبل الحجز
               </div>
             </div>
 
@@ -413,16 +430,16 @@ export default function Home() {
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <p className="text-xs font-semibold tracking-[0.24em] text-[#f0d795]">ترشيح سريع</p>
-                  <h3 className="mt-2 text-2xl font-bold text-white">الباقة الأكثر طلبًا: البداية الذكية</h3>
+                  <h3 className="mt-2 text-2xl font-bold text-white">إذا كانت هذه زيارتك الأولى فابدأ بباقة البداية الذكية</h3>
                   <p className="mt-2 max-w-2xl text-sm leading-7 text-white/74 sm:text-base">
-                    إذا كان العميل يدخل لأول مرة ويريد قرارًا سريعًا بسعر أوضح، فهذه هي الباقة التي نبرزها أولًا لتقليل التردد وتسريع الحجز.
+                    هذه الباقة مناسبة لمن يريد دخولًا سهلًا وسعرًا واضحًا وتجربة مرضية بدون تفكير طويل أو مقارنة معقدة.
                   </p>
                 </div>
                 <a
                   href={SITE.whatsapp}
                   target="_blank"
                   rel="noreferrer"
-                  onClick={() => handleWhatsAppTrack("featured_package_callout") }
+                  onClick={() => handleWhatsAppTrack("featured_package_callout")}
                   className="inline-flex h-12 items-center justify-center rounded-full border border-[#d9b96c]/35 bg-[#5b340d] px-6 text-sm font-extrabold text-white transition hover:-translate-y-0.5 hover:bg-[#6d3f11]"
                 >
                   ابدأ بهذه الباقة
@@ -465,7 +482,7 @@ export default function Home() {
                       {index === 0 ? (
                         <div className="mx-auto mb-4 inline-flex items-center gap-2 rounded-full border border-[#f2d792]/28 bg-[#f0c96a]/12 px-4 py-2 text-sm font-extrabold text-[#f4dfa5] shadow-[0_12px_30px_rgba(196,145,43,0.16)]">
                           <span className="inline-block h-2.5 w-2.5 rounded-full bg-[#f0c96a]" />
-                          ترشيحنا الأسرع للحجز الأول
+                          بداية مناسبة لأغلب العملاء الجدد
                         </div>
                       ) : null}
                       <h3 className="text-[1.9rem] font-bold leading-tight text-white sm:text-[2.45rem]">{pkg.name}</h3>
@@ -487,11 +504,11 @@ export default function Home() {
                       </div>
                     </div>
 
-                    <p className="mt-6 text-center text-base leading-8 text-white/56 sm:mt-8 sm:text-lg sm:leading-9">{pkg.summary}</p>
+                    <p className="mt-6 text-center text-base leading-8 text-white/60 sm:mt-8 sm:text-lg sm:leading-9">{pkg.summary}</p>
 
                     <div className="mt-8 space-y-4 text-center sm:mt-10 sm:space-y-5">
                       {pkg.features.map((feature) => (
-                        <div key={feature} className="flex flex-row-reverse items-center justify-center gap-3 text-[1.1rem] font-semibold text-white sm:text-[1.25rem]">
+                        <div key={feature} className="flex flex-row-reverse items-center justify-center gap-3 text-[1.06rem] font-semibold text-white sm:text-[1.2rem]">
                           <Sparkles className="h-4 w-4 shrink-0 fill-[#d1a84b] text-[#d1a84b]" />
                           <span>{feature}</span>
                         </div>
@@ -499,8 +516,7 @@ export default function Home() {
                     </div>
 
                     <div className="mt-auto pt-10">
-                        <div dir="ltr" className="grid grid-cols-[84px_1fr] gap-3 sm:grid-cols-[92px_1fr]">
-
+                      <div dir="ltr" className="grid grid-cols-[84px_1fr] gap-3 sm:grid-cols-[92px_1fr]">
                         <button
                           type="button"
                           onClick={() => handleSharePackage(pkg.name)}
@@ -512,7 +528,7 @@ export default function Home() {
                           href={SITE.whatsapp}
                           target="_blank"
                           rel="noreferrer"
-                          onClick={() => handleWhatsAppTrack(`package_${index + 1}_${pkg.name}_${pkg.savings}`) }
+                          onClick={() => handleWhatsAppTrack(`package_${index + 1}_${pkg.name}_${pkg.savings}`)}
                           className="inline-flex h-13 items-center justify-center rounded-[1.2rem] bg-[#56310b] text-xl font-extrabold text-white transition hover:-translate-y-0.5 hover:bg-[#6b3d10] sm:h-14 sm:text-2xl"
                         >
                           احجز الآن
@@ -538,19 +554,19 @@ export default function Home() {
             <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
               <div>
                 <div className="section-kicker">دعوة للحجز</div>
-                <h2 className="mt-4 text-3xl font-bold text-white sm:text-4xl">جاهز للاسترخاء؟ احجز موعدك الآن خلال ثوانٍ</h2>
+                <h2 className="mt-4 text-3xl font-bold text-white sm:text-4xl">إذا كان وقتك ضيقًا، أرسل رسالة الآن وسيتم الرد عليك بسرعة</h2>
                 <p className="mt-4 max-w-2xl text-base leading-8 text-white/76">
-                  أقصر طريق للحجز هو رسالة مباشرة عبر واتساب. الموقع واضح، الرقم ظاهر، والقرار أصبح أسهل بكثير من النسخة السابقة.
+                  كل ما تحتاجه الآن هو الضغط على زر واتساب أو الاتصال المباشر. الموقع واضح، الرقم ظاهر، والعرض الحالي يمكن معرفته فورًا.
                 </p>
               </div>
               <div className="flex flex-col gap-3 lg:items-end">
-                <a href={SITE.whatsapp} target="_blank" rel="noreferrer" onClick={() => handleWhatsAppTrack("mid_cta_whatsapp") }>
+                <a href={SITE.whatsapp} target="_blank" rel="noreferrer" onClick={() => handleWhatsAppTrack("mid_cta_whatsapp")}>
                   <Button className="gold-button h-12 min-w-[220px] rounded-full px-6 text-base font-extrabold">
                     <MessageCircle className="ms-2 h-5 w-5" />
                     ابدأ الحجز عبر واتساب
                   </Button>
                 </a>
-                <a href={SITE.tel} onClick={() => handleCallTrack("mid_cta_call") }>
+                <a href={SITE.tel} onClick={() => handleCallTrack("mid_cta_call")}>
                   <Button className="outline-button h-12 min-w-[220px] rounded-full px-6 text-base font-bold">
                     <Phone className="ms-2 h-5 w-5" />
                     اتصل مباشرة الآن
@@ -565,9 +581,9 @@ export default function Home() {
           <div className="section-shell rounded-[2rem] p-6 sm:p-8 lg:p-10">
             <div className="max-w-2xl">
               <div className="section-kicker">تقييمات العملاء</div>
-              <h2 className="mt-4 text-3xl font-bold text-white sm:text-4xl">ثقة حقيقية من Google، لا مجرد كلام تسويقي</h2>
+              <h2 className="mt-4 text-3xl font-bold text-white sm:text-4xl">ثقة حقيقية تدعم القرار وتقلل التردد قبل التواصل</h2>
               <p className="mt-4 text-base leading-8 text-white/72">
-                يظهر التقييم بشكل أوضح في هذه النسخة مع بطاقات قراءة مريحة على الجوال، بدل التزاحم الذي كان يغطي جزءًا من المحتوى في الصفحة السابقة.
+                عندما يرى الزائر تقييمات واضحة وتجارب مطمئنة، ترتفع الثقة ويصبح الضغط على زر الحجز أسهل وأكثر طبيعية.
               </p>
             </div>
 
@@ -618,37 +634,38 @@ export default function Home() {
 
         <section className="container mt-8">
           <div className="section-shell rounded-[2rem] p-6 sm:p-8 lg:p-10">
-            <div className="grid gap-8 lg:grid-cols-[1fr_1fr] lg:items-start">
+            <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
               <div>
-                <div className="section-kicker">الإطلالة والموقع</div>
-                <h2 className="mt-4 text-3xl font-bold text-white sm:text-4xl">إحساس المكان يبدأ من الإطلالة قبل الجلسة</h2>
+                <div className="section-kicker">الإطلالة والمكان</div>
+                <h2 className="mt-4 text-3xl font-bold text-white sm:text-4xl">إحساس المكان يبدأ قبل الجلسة، ولذلك أوضحنا الوصول والثقة بشكل أبسط</h2>
                 <p className="mt-4 text-base leading-8 text-white/72">
-                  تم ربط هذا القسم بالفيديو المعتمد لإبراز الواجهة والإطلالة بشكل أقرب لما يبحث عنه الزائر قبل الحجز، مع الحفاظ على سرعة العرض على الجوال.
+                  ركزنا هنا على عناصر الثقة الحقيقية: صور واقعية من داخل المكان، مشهد بصري من تجربة العلاج، ورابط واضح للخرائط حتى يشعر الزائر بصدق التجربة قبل الحجز.
                 </p>
                 <div className="mt-6 grid gap-4 sm:grid-cols-2">
                   <div className="glass-panel overflow-hidden rounded-[1.7rem] p-3 sm:col-span-2">
+                    <img src={ASSETS.realRoomOne} alt="صورة حقيقية لغرفة العلاج داخل السبا" className="h-64 w-full rounded-[1.2rem] object-cover sm:h-72" loading="lazy" decoding="async" />
+                  </div>
+                  <div className="glass-panel overflow-hidden rounded-[1.7rem] p-3">
+                    <img src={ASSETS.realRoomTwo} alt="صورة حقيقية إضافية من داخل الغرفة" className="h-48 w-full rounded-[1.2rem] object-cover" loading="lazy" decoding="async" />
+                  </div>
+                  <div className="glass-panel overflow-hidden rounded-[1.7rem] p-3">
                     <video
-                      className="h-64 w-full rounded-[1.2rem] object-cover sm:h-72"
-                      src={ASSETS.ambientVideo}
+                      src={ASSETS.realTreatmentVideo}
+                      poster={ASSETS.realRoomOne}
+                      className="h-48 w-full rounded-[1.2rem] object-cover"
                       autoPlay
                       muted
                       loop
                       playsInline
-                      preload="metadata"
+                      preload="none"
                     />
-                  </div>
-                  <div className="glass-panel overflow-hidden rounded-[1.7rem] p-3">
-                    <img src={ASSETS.galleryTwo} alt="صورة إضافية من داخل السبا" className="h-48 w-full rounded-[1.2rem] object-cover" />
-                  </div>
-                  <div className="glass-panel overflow-hidden rounded-[1.7rem] p-3">
-                    <img src={ASSETS.galleryThree} alt="تفاصيل إضافية من أجواء المكان" className="h-48 w-full rounded-[1.2rem] object-cover" />
                   </div>
                 </div>
               </div>
 
               <div className="grid gap-4">
                 {FAQS.map((faq) => (
-                  <details key={faq.question} className="glass-panel rounded-[1.5rem] p-5 group">
+                  <details key={faq.question} className="glass-panel group rounded-[1.5rem] p-5">
                     <summary className="list-none text-lg font-bold text-white marker:hidden">
                       <div className="flex items-center justify-between gap-4">
                         <span>{faq.question}</span>
@@ -667,12 +684,12 @@ export default function Home() {
 
         <section id="contact" className="container mt-8">
           <div className="section-shell rounded-[2rem] p-6 sm:p-8 lg:p-10">
-            <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+            <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
               <div>
                 <div className="section-kicker">التواصل والموقع</div>
-                <h2 className="mt-4 text-3xl font-bold text-white sm:text-4xl">احجز ملاذك الخاص</h2>
+                <h2 className="mt-4 text-3xl font-bold text-white sm:text-4xl">احجز ملاذك الخاص بسرعة وبدون تعقيد</h2>
                 <p className="mt-4 text-base leading-8 text-white/72">
-                  تواصل معنا أو تفضل بزيارتنا في الموقع. كل البيانات الأساسية موضوعة بشكل أوضح لتسهيل الوصول والحجز من الجوال.
+                  جميع البيانات المهمة موجودة هنا بشكل مباشر: العنوان، أوقات العمل، رقم الهاتف، رابط الخرائط، وزر واتساب للحجز السريع.
                 </p>
                 <div className="mt-6 space-y-4">
                   <div className="glass-panel rounded-[1.5rem] p-5">
@@ -698,32 +715,12 @@ export default function Home() {
               </div>
 
               <div className="glass-panel rounded-[1.8rem] p-6 sm:p-7">
-                <div className="overflow-hidden rounded-[1.5rem] border border-[#d5b667]/18 bg-[#0a1020]/80 p-2">
-                  <MapView
-                    className="h-[18rem] rounded-[1.15rem] sm:h-[21rem]"
-                    initialCenter={SITE.mapCenter}
-                    initialZoom={16}
-                    onMapReady={(map) => {
-                      const markerLibrary = window.google?.maps?.marker;
-                      if (markerLibrary?.AdvancedMarkerElement) {
-                        new markerLibrary.AdvancedMarkerElement({
-                          map,
-                          position: SITE.mapCenter,
-                          title: SITE.arabicName,
-                        });
-                      }
-                    }}
-                  />
-                </div>
-                <p className="mt-4 text-sm leading-7 text-white/64">
-                  خريطة مباشرة للموقع داخل الفندق، مع إمكانية فتح المسار فورًا في Google Maps من الزر التالي.
-                </p>
-                <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                <div className="grid gap-4 sm:grid-cols-2">
                   <a
                     href={SITE.whatsapp}
                     target="_blank"
                     rel="noreferrer"
-                    onClick={() => handleWhatsAppTrack("contact_whatsapp") }
+                    onClick={() => handleWhatsAppTrack("contact_whatsapp")}
                     className="rounded-[1.5rem] border border-[#27d466]/22 bg-[#25d366]/14 p-5 text-center transition hover:-translate-y-1"
                   >
                     <MessageCircle className="mx-auto h-7 w-7 text-[#25d366]" />
@@ -732,7 +729,7 @@ export default function Home() {
                   </a>
                   <a
                     href={SITE.tel}
-                    onClick={() => handleCallTrack("contact_call") }
+                    onClick={() => handleCallTrack("contact_call")}
                     className="rounded-[1.5rem] border border-[#d7b96b]/22 bg-[#d7b96b]/10 p-5 text-center transition hover:-translate-y-1"
                   >
                     <Phone className="mx-auto h-7 w-7 text-[#d8bb72]" />
@@ -740,6 +737,19 @@ export default function Home() {
                     <p className="mt-2 text-sm leading-7 text-white/72">{SITE.phone}</p>
                   </a>
                 </div>
+
+                <div className="mt-4 grid gap-3">
+                  {[
+                    "تأكيد الحجز يتم بسرعة عبر الرسائل أو الاتصال.",
+                    "الموقع واضح داخل الفندق مع إمكانية فتح الخرائط فورًا.",
+                    "أوقات العمل الممتدة تقلل صعوبة إيجاد وقت مناسب للزيارة.",
+                  ].map((item) => (
+                    <div key={item} className="rounded-[1.3rem] border border-white/8 bg-white/[0.03] px-4 py-3 text-sm leading-7 text-white/76">
+                      {item}
+                    </div>
+                  ))}
+                </div>
+
                 <a
                   href={SITE.maps}
                   target="_blank"
@@ -758,7 +768,9 @@ export default function Home() {
 
       <footer className="container pb-10 text-center text-sm text-white/48">
         <div className="rounded-[1.4rem] border border-white/6 bg-white/[0.03] px-4 py-5">
-          <p>© {year} {SITE.name}. جميع الحقوق محفوظة.</p>
+          <p>
+            © {year} {SITE.name}. جميع الحقوق محفوظة.
+          </p>
         </div>
       </footer>
 
@@ -767,7 +779,7 @@ export default function Home() {
           href={SITE.whatsapp}
           target="_blank"
           rel="noreferrer"
-          onClick={() => handleWhatsAppTrack("floating_whatsapp") }
+          onClick={() => handleWhatsAppTrack("floating_whatsapp")}
           className="floating-button bg-[#25d366] text-white"
           aria-label="واتساب"
         >
@@ -775,7 +787,7 @@ export default function Home() {
         </a>
         <a
           href={SITE.tel}
-          onClick={() => handleCallTrack("floating_call") }
+          onClick={() => handleCallTrack("floating_call")}
           className="floating-button bg-[linear-gradient(135deg,#d7b969,#9d7220)] text-[#0b0f19]"
           aria-label="اتصال"
         >

@@ -78,3 +78,7 @@ temp/
 # Project-specific generated artifacts
 .webdev/
 client/public/__manus__/version.json
+.vercel
+attached_assets/
+.manus-homepage-audit-notes.md
+video_*_analysis_*.md

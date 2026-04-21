@@ -27,6 +27,9 @@ export const ASSETS = {
   galleryOne: "/manus-storage/pasted_file_9iaWqB_20251221_172518_82d00966.jpg",
   galleryTwo: "/manus-storage/pasted_file_MOVki8_20251221_174245_64ebb93b.jpg",
   galleryThree: "/manus-storage/pasted_file_oG2Tfq_20251221_172048_9adfcf80.jpg",
+  realRoomOne: "/manus-storage/moon-shadow-room-authentic-1.jpg",
+  realRoomTwo: "/manus-storage/moon-shadow-room-authentic-2.jpg",
+  realTreatmentVideo: "/manus-storage/moon-shadow-treatment-closeup.mp4",
   ambientVideo: "/manus-storage/pasted_file_QgwfZJ_20260116_170003_d2f9d85b.mp4",
   generatedHeroOverlay:
     "https://d2xsxph8kpxj0f.cloudfront.net/310419663030376366/Bc4kNPawbexfShxLmsB87w/moonshadow_hero_overlay_art-ZKhSAEMK4Ui2mFNmpsoEUG.webp",
