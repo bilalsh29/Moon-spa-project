@@ -206,13 +206,13 @@ export default function Home() {
                 <div className="fade-up section-kicker">Luxury Men&apos;s Spa in Dammam</div>
                 <div className="fade-up-delayed mt-5 inline-flex items-center gap-2 rounded-full border border-red-400/30 bg-red-500/10 px-4 py-2 text-sm font-bold text-red-100">
                   <span className="inline-block h-2.5 w-2.5 animate-pulse rounded-full bg-red-400" />
-                  الأماكن محدودة — أسرع طريقة للحجز هي واتساب
+                  عرض أول زيارة 🔥
                 </div>
-                <h1 className="fade-up-delayed mt-6 max-w-3xl text-4xl font-bold leading-[1.2] text-white sm:text-5xl lg:text-6xl">
-                  {SITE.tagline}
+                <h1 className="fade-up-delayed mt-6 max-w-3xl text-4xl font-bold leading-[1.15] text-white sm:text-5xl lg:text-6xl">
+                  45 دقيقة — 99 ريال
                 </h1>
                 <p className="fade-up-delayed-2 mt-5 max-w-2xl text-base leading-8 text-white/80 sm:text-lg">
-                  {SITE.subtagline}
+                  داخل فندق Tripper Inn — حجز سريع عبر واتساب وتجربة هادئة مصممة للراحة والاسترخاء.
                 </p>
 
                 <div className="fade-up-delayed-2 mt-7 grid gap-3 sm:max-w-2xl sm:grid-cols-3">
@@ -228,15 +228,9 @@ export default function Home() {
 
                 <div className="fade-up-delayed-2 mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                   <a href={SITE.whatsapp} target="_blank" rel="noreferrer" onClick={() => handleWhatsAppTrack("hero_whatsapp")}>
-                    <Button className="gold-button h-12 min-w-[205px] rounded-full px-6 text-base font-extrabold">
+                    <Button className="gold-button h-12 min-w-[220px] rounded-full px-6 text-base font-extrabold">
                       <MessageCircle className="ms-2 h-5 w-5" />
                       احجز الآن عبر واتساب
-                    </Button>
-                  </a>
-                  <a href={SITE.tel} onClick={() => handleCallTrack("hero_call")}>
-                    <Button className="outline-button h-12 min-w-[175px] rounded-full px-6 text-base font-bold">
-                      <Phone className="ms-2 h-5 w-5" />
-                      اتصل الآن
                     </Button>
                   </a>
                 </div>
@@ -312,6 +306,12 @@ export default function Home() {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+
+        <section className="container mt-6">
+          <div className="rounded-[1.5rem] border border-[#d7b86b]/18 bg-[#101728]/78 px-5 py-4 text-center text-sm font-semibold text-[#ecd7a0] shadow-[0_18px_40px_rgba(0,0,0,0.2)] sm:text-base">
+            تفضل جلسة أطول؟ 60 دقيقة بـ 119 ريال
           </div>
         </section>
 
@@ -430,9 +430,9 @@ export default function Home() {
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <p className="text-xs font-semibold tracking-[0.24em] text-[#f0d795]">ترشيح سريع</p>
-                  <h3 className="mt-2 text-2xl font-bold text-white">إذا كانت هذه زيارتك الأولى فابدأ بباقة البداية الذكية</h3>
+                  <h3 className="mt-2 text-2xl font-bold text-white">ابدأ بعرض أول زيارة أو اختر 60 دقيقة إذا كنت تفضل جلسة أطول</h3>
                   <p className="mt-2 max-w-2xl text-sm leading-7 text-white/74 sm:text-base">
-                    هذه الباقة مناسبة لمن يريد دخولًا سهلًا وسعرًا واضحًا وتجربة مرضية بدون تفكير طويل أو مقارنة معقدة.
+                    رتبنا الأسعار بشكل مباشر وواضح حتى يكون القرار أسرع والحجز أسهل بدون تشتيت.
                   </p>
                 </div>
                 <a
@@ -442,7 +442,7 @@ export default function Home() {
                   onClick={() => handleWhatsAppTrack("featured_package_callout")}
                   className="inline-flex h-12 items-center justify-center rounded-full border border-[#d9b96c]/35 bg-[#5b340d] px-6 text-sm font-extrabold text-white transition hover:-translate-y-0.5 hover:bg-[#6d3f11]"
                 >
-                  ابدأ بهذه الباقة
+                  احجز عرض أول زيارة
                 </a>
               </div>
             </div>
@@ -482,7 +482,7 @@ export default function Home() {
                       {index === 0 ? (
                         <div className="mx-auto mb-4 inline-flex items-center gap-2 rounded-full border border-[#f2d792]/28 bg-[#f0c96a]/12 px-4 py-2 text-sm font-extrabold text-[#f4dfa5] shadow-[0_12px_30px_rgba(196,145,43,0.16)]">
                           <span className="inline-block h-2.5 w-2.5 rounded-full bg-[#f0c96a]" />
-                          بداية مناسبة لأغلب العملاء الجدد
+                          عرض أول زيارة فقط
                         </div>
                       ) : null}
                       <h3 className="text-[1.9rem] font-bold leading-tight text-white sm:text-[2.45rem]">{pkg.name}</h3>
@@ -492,17 +492,21 @@ export default function Home() {
                       </div>
                     </div>
 
-                    <div className="mt-5 text-center">
-                      <div className="text-lg font-semibold text-white/28 line-through decoration-white/28 decoration-2">
-                        {formatArabicPrice(pkg.originalPrice)} ريال
+                    {pkg.originalPrice ? (
+                      <div className="mt-5 text-center">
+                        <div className="text-lg font-semibold text-white/28 line-through decoration-white/28 decoration-2">
+                          {formatArabicPrice(pkg.originalPrice)} ريال
+                        </div>
                       </div>
-                    </div>
+                    ) : null}
 
-                    <div className="mt-3 flex justify-center">
-                      <div className="rounded-full border border-emerald-400/18 bg-emerald-500/10 px-4 py-2 text-sm font-extrabold text-emerald-200 shadow-[0_10px_25px_rgba(16,185,129,0.14)]">
-                        {pkg.savings}
+                    {pkg.savings ? (
+                      <div className="mt-3 flex justify-center">
+                        <div className="rounded-full border border-emerald-400/18 bg-emerald-500/10 px-4 py-2 text-sm font-extrabold text-emerald-200 shadow-[0_10px_25px_rgba(16,185,129,0.14)]">
+                          {pkg.savings}
+                        </div>
                       </div>
-                    </div>
+                    ) : null}
 
                     <p className="mt-6 text-center text-base leading-8 text-white/60 sm:mt-8 sm:text-lg sm:leading-9">{pkg.summary}</p>
 
